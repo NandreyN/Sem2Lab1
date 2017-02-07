@@ -6,5 +6,5 @@ using namespace std;
 int main()
 {
 	//Tasks::TaskOne();
-	Tasks::TaskTwo("in.txt");
+	Tasks::TaskTwo("in.txt", 'H');
 }

@@ -28,7 +28,7 @@ void Tasks::TaskOne()
 	});
 }
 
-void Tasks::TaskTwo(const string& sourcePath) throw (invalid_argument)
+void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_argument)
 {
 	ifstream inputFile;
 	inputFile.open(sourcePath);
@@ -44,7 +44,34 @@ void Tasks::TaskTwo(const string& sourcePath) throw (invalid_argument)
 		lst.push_back(data);
 	}
 
-	for_each(lst.begin(), lst.end(), [](auto s) {cout << s << endl; });
-	
+	lst.sort([](string a, string b)->bool {return a < b; });
+
+	for_each(lst.begin(), lst.end(), [](auto s) {cout << s << endl; }); // printing
+
+	cout << "Removed strted by letter : " << endl << "/////////////////////////////////////////////////" << endl;
+	// Printing only strings started with filterParam letter
+
+	for_each(lst.begin(), lst.end(), [filterParam](const string& a)->void
+	{
+		if (a.c_str()[0] == filterParam)
+			cout << a << endl;
+	});
+
+	auto iter = lst.begin();
+	while(iter != lst.end())
+	{
+		if (iter->c_str()[0] == filterParam)
+			lst.erase(iter++);
+		else
+			++iter;
+	}
+
+	cout << "After Deleting : " << endl;
+	for_each(lst.begin(), lst.end(), [](auto s) {cout << s << endl; }); // printing
 	cout << "done!" << endl;
+}
+
+bool Tasks::initial(const string& str, char init)
+{
+	return (str.c_str()[0] == init) ? true : false;
 }
