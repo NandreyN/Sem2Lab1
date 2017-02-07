@@ -6,6 +6,7 @@
 #include <fstream>
 #include <list>
 #include <numeric>
+#include <iterator>
 
 using namespace std;
 
@@ -28,9 +29,7 @@ void Tasks::TaskOne()
 	//Reverse
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "Reverse order : " << endl << endl;
-	for_each(charVector.rbegin(), charVector.rend(), [](char c)->void {
-		cout << c << endl;
-	});
+	copy(charVector.cbegin(), charVector.cend(), std::ostream_iterator<char>(cout, "\n"));
 }
 
 void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_argument)
@@ -51,10 +50,7 @@ void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_a
 		lst.push_back(data);
 	}
 	inputFile.close();
-	if (inputFile.is_open())
-		throw ""; // To add exception
-
-
+	
 	lst.sort([](const string& a, const string& b)->bool {return a < b; });
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "Sorted" << endl;
@@ -63,12 +59,8 @@ void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_a
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "Printed  by letter : " << endl;
 	// Printing only strings started with filterParam letter
-
-	for_each(lst.begin(), lst.end(), [filterParam](const string& a)->void
-	{
-		if (a[0] == filterParam)
-			cout << a << endl;
-	});
+	
+	copy_if(lst.begin(), lst.end(), ostream_iterator<string>(cout, "\n"), [filterParam](const string& a) {return a[0] == filterParam; });
 
 	/*auto iter = lst.begin();
 	while(iter != lst.end())
@@ -80,7 +72,7 @@ void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_a
 	}*
 
 	/*Implement delete analog here*/
-	remove_if(lst.begin(), lst.end(), [filterParam](string a)->bool
+	remove_if(lst.begin(), lst.end(), [filterParam](const string& a)->bool
 	{
 		return a[0] == filterParam;
 	});
@@ -88,6 +80,9 @@ void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_a
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "After Deleting : " << endl;
 	for_each(lst.begin(), lst.end(), [](auto s) {cout << s << endl; }); // printing
+
+	if (inputFile.is_open())
+		throw ifstream::failure("Close file error");
 }
 
 void Tasks::TaskThree(const std::string& sourcePath, int compare1, int compare2, bool greater)
@@ -133,7 +128,7 @@ void Tasks::TaskThree(const std::string& sourcePath, int compare1, int compare2,
 	};
 
 	value1Vector = count_if(vector.begin(), vector.end(), funcForTask2);
-	value2List = count_if(list.begin(), list.end(),funcForTask2);
+	value2List = count_if(list.begin(), list.end(), funcForTask2);
 	value3Deque = count_if(deque.begin(), deque.end(), funcForTask2);
 
 	string messagetoOut = (greater) ? "greater than " : "less than";
@@ -158,11 +153,11 @@ void Tasks::TaskThree(const std::string& sourcePath, int compare1, int compare2,
 	cout << "Deque : " << value3Deque << endl;
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "task 3.5: average" << endl;
-	cout << "Vector : " << static_cast<double>(value1Vector)/vector.size()<< endl;
-	cout << "List : " << static_cast<double>(value2List)/ list.size()<< endl;
-	cout << "Deque : " << static_cast<double>(value3Deque)/ deque.size() << endl;
+	cout << "Vector : " << static_cast<double>(value1Vector) / vector.size() << endl;
+	cout << "List : " << static_cast<double>(value2List) / list.size() << endl;
+	cout << "Deque : " << static_cast<double>(value3Deque) / deque.size() << endl;
 
 	inputFile.close();
 	if (inputFile.is_open())
-		throw ""; // To add exception
+		throw ifstream::failure("Close file error"); // To add exception	
 }
