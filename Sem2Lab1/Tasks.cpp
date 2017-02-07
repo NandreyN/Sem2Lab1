@@ -116,30 +116,17 @@ void Tasks::TaskThree(const std::string& sourcePath, int compare1, int compare2,
 	cout << "List : " << value2List << endl;
 	cout << "Deque : " << value3Deque << endl;
 
-
-	value1Vector = count_if(vector.begin(), vector.end(), [greater, compare2](int a)
+	auto funcForTask2 = [greater, compare2](int a)
 	{
 		if (greater)
 			return a > compare2;
 		else
 			return a < compare2;
-	});
+	};
 
-	value2List = count_if(list.begin(), list.end(), [greater, compare2](int a)
-	{
-		if (greater)
-			return a > compare2;
-		else
-			return a < compare2;
-	});
-
-	value3Deque = count_if(deque.begin(), deque.end(), [greater, compare2](int a)
-	{
-		if (greater)
-			return a > compare2;
-		else
-			return a < compare2;
-	});
+	value1Vector = count_if(vector.begin(), vector.end(), funcForTask2);
+	value2List = count_if(list.begin(), list.end(),funcForTask2);
+	value3Deque = count_if(deque.begin(), deque.end(), funcForTask2);
 
 	string messagetoOut = (greater) ? "greater than " : "less than";
 	cout << "__________________________________________________________________________________________________________________" << endl;
