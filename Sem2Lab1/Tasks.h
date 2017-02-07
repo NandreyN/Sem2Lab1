@@ -6,8 +6,7 @@ class Tasks
 public:
 	static void TaskOne();
 	static void TaskTwo(const std::string&, char);
-	static void TaskThree();
+	static void TaskThree(const std::string&, int,int,bool);
 private:
-	bool initial(const std::string&,char);
 };
 

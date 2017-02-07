@@ -149,7 +149,8 @@
     <ClInclude Include="Tasks.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="in.txt" />
+    <Text Include="inT2.txt" />
+    <Text Include="inT3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
