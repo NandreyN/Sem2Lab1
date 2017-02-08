@@ -29,7 +29,7 @@ void Tasks::TaskOne()
 	//Reverse
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "Reverse order : " << endl << endl;
-	copy(charVector.cbegin(), charVector.cend(), std::ostream_iterator<char>(cout, "\n"));
+	copy(charVector.rbegin(), charVector.rend(), std::ostream_iterator<char>(cout, "\n"));
 }
 
 void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_argument)
@@ -80,7 +80,7 @@ void Tasks::TaskTwo(const string& sourcePath, char filterParam) throw (invalid_a
 	cout << "__________________________________________________________________________________________________________________" << endl;
 	cout << "After Deleting : " << endl;
 	for_each(lst.begin(), lst.end(), [](auto s) {cout << s << endl; }); // printing
-
+	
 	if (inputFile.is_open())
 		throw ifstream::failure("Close file error");
 }
@@ -114,7 +114,7 @@ void Tasks::TaskThree(const std::string& sourcePath, int compare1, int compare2,
 	int value2List = count(list.begin(), list.begin(), compare1);
 	int value3Deque = count(deque.begin(), deque.begin(), compare1);
 
-	cout << "task 3.1  : equel to " << to_string(compare1) << endl;
+	cout << "task 3.1  : equal to " << to_string(compare1) << endl;
 	cout << "Vector : " << value1Vector << endl;
 	cout << "List : " << value2List << endl;
 	cout << "Deque : " << value3Deque << endl;
